@@ -13,5 +13,9 @@ exports.createStore = async (req, res) => {
   // req.body is OK, because using a `strict` schema - will only take what's on the schema
   const store = new Store(req.body);
   await store.save();
+  req.flash(
+    'success',
+    `Successfully created ${store.name}. Care to leave a review?`,
+  );
   res.redirect('/');
 };
