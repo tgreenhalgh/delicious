@@ -11,11 +11,14 @@ exports.addStore = (req, res) => {
 
 exports.createStore = async (req, res) => {
   // req.body is OK, because using a `strict` schema - will only take what's on the schema
-  const store = new Store(req.body);
-  await store.save();
+  const store = await new Store(req.body).save();
+  // new Store(req.body) creates the store
+  // .save() saves it, which returns a promise
+  // await that. the response from await is saved into `store` variable
+  // because save() is back, the slug is created, so can use in the redirect below
   req.flash(
     'success',
     `Successfully created ${store.name}. Care to leave a review?`,
   );
-  res.redirect('/');
+  res.redirect(`/store/${store.slug}`);
 };

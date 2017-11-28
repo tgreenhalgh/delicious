@@ -44,6 +44,8 @@ html
             each category in categories
               each message in flashes[category]
                 .flash(class=`flash--${category}`)
+                  // parses the html, doesn't show it literally
+                  //p.flash__text= message would show the HTML
                   p.flash__text!= message
                   button.flash__remove(onClick="this.parentElement.remove()") &times;
     .content
